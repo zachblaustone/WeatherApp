@@ -16,6 +16,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     let locationManager = CLLocationManager()
     var Longitude: Double = 0.0
     var Latitiude: Double = 0.0
+    var weather: WeatherGetter!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +26,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         collection.delegate = self
         collection.dataSource = self
-        
+
         
         if (CLLocationManager.locationServicesEnabled()) {
             
@@ -51,8 +52,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         print("Long: \(Longitude) Lat: \(Latitiude)")
         
+        
         if Longitude != 0.0 || Latitiude != 0.0 {
-            WeatherGetter(lat: Latitiude, long: Longitude)
+            weather.downloadWeatherDetails(Latitiude, long: Longitude)
         }
         
         

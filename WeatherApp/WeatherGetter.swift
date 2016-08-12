@@ -21,6 +21,8 @@ class WeatherGetter {
     private var _latitude: Double!
     private var _weatherURL: String!
     
+    
+    
     var day: String {
         return _day
     }
@@ -53,25 +55,28 @@ class WeatherGetter {
        return _latitude
     }
     
-    init(lat: Double, long: Double) {
-        
-        self._longitude = long
-        self._latitude = lat
-        
-        
-        _weatherURL = "\(URL_BASE)?lat=\(self._latitude)&lon=\(self._longitude)&appid=\(URL_PASSWORD)"
-    }
+//    init(lat: Double, long: Double) {
+//        
+//        self._longitude = long
+//        self._latitude = lat
+//        
+//        
+//        _weatherURL = "\(URL_BASE)?lat=\(self._latitude)&lon=\(self._longitude)&appid=\(URL_PASSWORD)"
+//        
+//
+//    }
     
     
     
 
     
-    func downloadWeatherDetails(completed: DownloadComplete) {
-        let url = NSURL(string: _weatherURL)!
+    func downloadWeatherDetails(lat: Double, long: Double) {
+        let url = NSURL(string: "\(URL_BASE)?lat=\(lat)&lon=\(long)&appid=\(URL_PASSWORD)")!
         Alamofire.request(.GET, url).responseJSON { responce in
             let result = responce.result
             
             print(result.value.debugDescription)
+            
         }
     }
     
