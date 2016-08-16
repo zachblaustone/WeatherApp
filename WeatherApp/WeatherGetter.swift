@@ -31,10 +31,16 @@ class WeatherGetter {
     
     
     var day: String {
+        if _day == nil {
+            _day = ""
+        }
         return _day
     }
     
     var tempature: String {
+        if _tempature == nil {
+            _tempature = ""
+        }
         return _tempature
     }
     
@@ -108,6 +114,8 @@ class WeatherGetter {
             
             print(result.value.debugDescription)
             
+            complete()
+            
             if let dict = result.value as? Dictionary<String, AnyObject> {
                 
                 if let main = dict["main"] as? Dictionary<String, AnyObject> {
@@ -150,7 +158,7 @@ class WeatherGetter {
                         
                     }
                     
-                    complete()
+
 
                 }
             }

@@ -33,10 +33,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         collection.delegate = self
         collection.dataSource = self
         
-        weather.downloadWeatherDetails { () -> () in
-            
-            self.updateUI()
-        }
+//        weather.downloadWeatherDetails { () -> () in
+//            
+//            self.updateUI()
+//            
+//        }
 
 
         
