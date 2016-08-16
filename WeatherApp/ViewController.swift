@@ -22,7 +22,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     let locationManager = CLLocationManager()
     var Longitude: Double = 0.0
     var Latitiude: Double = 0.0
-    var weather = WeatherGetter()
+    var weather: WeatherGetter!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +32,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         collection.delegate = self
         collection.dataSource = self
+        
+        weather.downloadWeatherDetails { () -> () in
+            
+            self.updateUI()
+        }
+
 
         
         if (CLLocationManager.locationServicesEnabled()) {
@@ -40,7 +46,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.requestAlwaysAuthorization()
             locationManager.startUpdatingLocation()
-            updateUI()
+            
+
         }
     
     }
@@ -51,13 +58,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func updateUI() {
-        if weather.downloaded == true {
             self.dayLow.text = weather.dayLow
             self.dayHigh.text = weather.dayHigh
             self.mainTemp.text = weather.tempature
             self.windSpeed.text = weather.windSpeed
             self.humidityPercentage.text = weather.humidityPercentage
-        }
     }
 
     
@@ -76,8 +81,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         
         if Longitude != 0.0 || Latitiude != 0.0 {
-            weather.downloadWeatherDetails(Latitiude, long: Longitude)
-            weather.downloaded = true
+            weather = WeatherGetter(lat: Latitiude, long: Longitude)
+//            weather.downloaded = true
 
         }
         

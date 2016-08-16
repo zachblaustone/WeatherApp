@@ -74,24 +74,15 @@ class WeatherGetter {
         return _windDirection
     }
     
-//    init(lat: Double, long: Double) {
-//        
-//        self._longitude = long
-//        self._latitude = lat
-//        
-//        
-//        _weatherURL = "\(URL_BASE)?lat=\(self._latitude)&lon=\(self._longitude)&appid=\(URL_PASSWORD)"
-//        
-//
-//    }
-    
-    func updateUI() {
-        if self.downloaded == true {
-            viewController.mainTemp.text = self._tempature
-        }
-
+    init(lat: Double, long: Double) {
+        
+        self._longitude = long
+        self._latitude = lat
+        
+        
+        _weatherURL = "\(URL_BASE)?lat=\(self._latitude)&lon=\(self._longitude)&units=imperial&appid=\(URL_PASSWORD)"
+        
     }
-    
     
     func timeStringFromUnixTime(unixTime: Double) -> String {
         let date = NSDate(timeIntervalSince1970: unixTime)
@@ -108,8 +99,8 @@ class WeatherGetter {
     
 
     
-    func downloadWeatherDetails(lat: Double, long: Double) {
-        let url = NSURL(string: "\(URL_BASE)?lat=\(lat)&lon=\(long)&units=imperial&appid=\(URL_PASSWORD)")!
+    func downloadWeatherDetails(complete: DownloadComplete) {
+        let url = NSURL(string: _weatherURL)!
         Alamofire.request(.GET, url).responseJSON { responce in
             let result = responce.result
             
@@ -159,12 +150,12 @@ class WeatherGetter {
                         
                     }
                     
-                    self.downloaded = true
+                    complete()
 
                 }
             }
             
-        }
+        } 
     }
     
 }
