@@ -8,10 +8,12 @@
 
 import Foundation
 import Alamofire
+import UIKit
 
-class Weather {
+class Weather: ViewController {
     
-
+    
+    
 }
 
 

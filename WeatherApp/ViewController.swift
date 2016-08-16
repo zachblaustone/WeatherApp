@@ -12,17 +12,23 @@ import CoreLocation
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CLLocationManagerDelegate {
 
     @IBOutlet weak var collection: UICollectionView!
+    @IBOutlet weak var dayLow: UILabel!
+    @IBOutlet weak var dayHigh: UILabel!
+    @IBOutlet weak var mainTemp: UILabel!
+    @IBOutlet weak var windSpeed: UILabel!
+    @IBOutlet weak var windDirection: UILabel!
+    @IBOutlet weak var humidityPercentage: UILabel!
     
     let locationManager = CLLocationManager()
     var Longitude: Double = 0.0
     var Latitiude: Double = 0.0
-    var weather: WeatherGetter!
+    var weather = WeatherGetter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
+
         
         collection.delegate = self
         collection.dataSource = self
@@ -34,10 +40,26 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.requestAlwaysAuthorization()
             locationManager.startUpdatingLocation()
-            
+            updateUI()
         }
+    
     }
     
+    override func viewDidAppear(animated: Bool) {
+//        locationManager.stopUpdatingLocation()
+
+    }
+    
+    func updateUI() {
+        if weather.downloaded == true {
+            self.dayLow.text = weather.dayLow
+            self.dayHigh.text = weather.dayHigh
+            self.mainTemp.text = weather.tempature
+            self.windSpeed.text = weather.windSpeed
+            self.humidityPercentage.text = weather.humidityPercentage
+        }
+    }
+
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation:CLLocation = locations[0]
@@ -55,6 +77,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         if Longitude != 0.0 || Latitiude != 0.0 {
             weather.downloadWeatherDetails(Latitiude, long: Longitude)
+            weather.downloaded = true
+
         }
         
         

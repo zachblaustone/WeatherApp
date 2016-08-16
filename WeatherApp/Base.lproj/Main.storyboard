@@ -21,8 +21,8 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Black_background" translatesAutoresizingMaskIntoConstraints="NO" id="Bw5-J4-SCD">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Today's Forecast" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="001-o8-kg3">
-                                <rect key="frame" x="200" y="20" width="200" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today's Forecast" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="001-o8-kg3">
+                                <rect key="frame" x="230" y="20" width="140" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="T2w-lX-6F6"/>
                                     <constraint firstAttribute="height" constant="21" id="UTN-Hs-uR1"/>
@@ -334,6 +334,12 @@
                     </view>
                     <connections>
                         <outlet property="collection" destination="6ZC-gk-zGZ" id="RQw-vQ-o4n"/>
+                        <outlet property="dayHigh" destination="8C7-LB-KA1" id="BRq-LU-MvP"/>
+                        <outlet property="dayLow" destination="4Q5-V9-OjO" id="lZk-tt-LrY"/>
+                        <outlet property="humidityPercentage" destination="SY2-zC-qK0" id="job-eZ-IOJ"/>
+                        <outlet property="mainTemp" destination="jXE-bD-U7e" id="B3H-js-MMQ"/>
+                        <outlet property="windDirection" destination="2vj-5F-bmG" id="i2l-Zp-j3O"/>
+                        <outlet property="windSpeed" destination="UaE-C6-zjF" id="DRq-8R-sBe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

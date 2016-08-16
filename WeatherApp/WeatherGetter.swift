@@ -20,6 +20,13 @@ class WeatherGetter {
     private var _longitude: Double!
     private var _latitude: Double!
     private var _weatherURL: String!
+    private var _humidityPercentage: String!
+    private var _windSpeed: String!
+    private var _windDirection: Int!
+    private var _weatherDescription: String!
+    
+    var viewController: ViewController!
+    var downloaded = false
     
     
     
@@ -55,6 +62,18 @@ class WeatherGetter {
        return _latitude
     }
     
+    var humidityPercentage: String {
+        return _humidityPercentage
+    }
+    
+    var windSpeed: String {
+        return _windSpeed
+    }
+    
+    var windDirection: Int {
+        return _windDirection
+    }
+    
 //    init(lat: Double, long: Double) {
 //        
 //        self._longitude = long
@@ -66,16 +85,84 @@ class WeatherGetter {
 //
 //    }
     
+    func updateUI() {
+        if self.downloaded == true {
+            viewController.mainTemp.text = self._tempature
+        }
+
+    }
     
+    
+    func timeStringFromUnixTime(unixTime: Double) -> String {
+        let date = NSDate(timeIntervalSince1970: unixTime)
+        
+        let dayTimePeriodFormatter = NSDateFormatter()
+        dayTimePeriodFormatter.dateFormat = "MMM dd YYYY hh:mm a"
+        
+        let dateString = dayTimePeriodFormatter.stringFromDate(date)
+        
+        print( " _ts value is \(dateString)")
+        self._day = dateString
+        return dateString
+    }
     
 
     
     func downloadWeatherDetails(lat: Double, long: Double) {
-        let url = NSURL(string: "\(URL_BASE)?lat=\(lat)&lon=\(long)&appid=\(URL_PASSWORD)")!
+        let url = NSURL(string: "\(URL_BASE)?lat=\(lat)&lon=\(long)&units=imperial&appid=\(URL_PASSWORD)")!
         Alamofire.request(.GET, url).responseJSON { responce in
             let result = responce.result
             
+            print("URL : \(url)")
+            
             print(result.value.debugDescription)
+            
+            if let dict = result.value as? Dictionary<String, AnyObject> {
+                
+                if let main = dict["main"] as? Dictionary<String, AnyObject> {
+                    if let temp = main["temp"] as? Int {
+                        self._tempature = "\(temp)˚"
+                    }
+                
+                    if let humidity = main["humidity"] as? Int {
+                        self._humidityPercentage = "\(humidity)%"
+                    }
+                    
+                    if let tempMin = main["temp_min"] as? Int {
+                        self._dayLow = "\(tempMin)˚"
+                    }
+                    
+                    if let tempMax = main["temp_max"] as? Int {
+                        self._dayHigh = "\(tempMax)˚"
+                    }
+                    
+                    if let wind = dict["wind"] as? Dictionary<String, AnyObject> {
+                        if let speed = wind["speed"] as? Int {
+                            self._windSpeed = "\(speed) mph"
+                            print(self._windSpeed)
+                        }
+                        if let deg = wind["deg"] as? Int {
+                            self._windDirection = deg
+                            print(self._windDirection)
+                        }
+                    }
+                    
+                    if let weather = dict["weather"] as? Dictionary<String, Array<String>> {
+                        if let desc = weather["main"] as? AnyObject {
+                            print(desc)
+                        }
+                        
+                    }
+                    
+                    if let dateTime = dict["dt"] as? Double {
+                        self.timeStringFromUnixTime(dateTime)
+                        
+                    }
+                    
+                    self.downloaded = true
+
+                }
+            }
             
         }
     }
@@ -85,43 +172,3 @@ class WeatherGetter {
 
 
 
-
-
-
-
-
-
-//    func getWeather(lat: Double, long: Double) {
-//
-//        // pi.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=b1b15e88fa797225412429c1c50c122a
-//
-//        // This is a pretty simple networking task, so the shared session will do.
-//        let session = NSURLSession.sharedSession()
-//
-//        let weatherRequestURL = NSURL(string: "\(URL_BASE)?lat=\(lat)&lon=\(long)&appid=\(URL_PASSWORD)")!
-//
-//        // The data task retrieves the data.
-//        let dataTask = session.dataTaskWithURL(weatherRequestURL) {
-//            (data: NSData?, response: NSURLResponse?, error: NSError?) in
-//            if let error = error {
-//                // Case 1: Error
-//                // We got some kind of error while trying to get data from the server.
-//                print("Error:\n\(error)")
-//            }
-//            else {
-//                // Case 2: Success
-//                // We got a response from the server!
-//                print("Raw data:\n\(data!)\n")
-//                let dataString = String(data: data!, encoding: NSUTF8StringEncoding)
-//                print("Human-readable data:\n\(dataString!)")
-//
-//
-//
-//            }
-//
-//
-//        }
-//
-//        // The data task is set up...launch it!
-//        dataTask.resume()
-//    }
