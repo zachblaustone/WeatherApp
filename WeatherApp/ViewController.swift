@@ -18,26 +18,31 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet weak var windSpeed: UILabel!
     @IBOutlet weak var windDirection: UILabel!
     @IBOutlet weak var humidityPercentage: UILabel!
+    @IBOutlet weak var weatherDescription: UILabel!
+    @IBOutlet weak var weatherIcon: UIImageView!
+    @IBOutlet weak var rainPercentage: UILabel!
+    
+
     
     let locationManager = CLLocationManager()
     var Longitude: Double = 0.0
     var Latitiude: Double = 0.0
     var weather: WeatherGetter!
-    
+
     override func viewDidLoad() {
+        
+
+        
         super.viewDidLoad()
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
+        
 
         
         collection.delegate = self
         collection.dataSource = self
         
-//        weather.downloadWeatherDetails { () -> () in
-//            
-//            self.updateUI()
-//            
-//        }
+
 
 
         
@@ -50,11 +55,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             
 
         }
+
+
+        
+
     
     }
     
     override func viewDidAppear(animated: Bool) {
-//        locationManager.stopUpdatingLocation()
+        locationManager.stopUpdatingLocation()
 
     }
     
@@ -64,6 +73,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             self.mainTemp.text = weather.tempature
             self.windSpeed.text = weather.windSpeed
             self.humidityPercentage.text = weather.humidityPercentage
+            self.weatherDescription.text = weather.weatherDescription.capitalizedString
+        
+        let img = UIImage(named: "\(weather.weatherIcon)")
+        weatherIcon.image = img
     }
 
     
@@ -83,7 +96,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         if Longitude != 0.0 || Latitiude != 0.0 {
             weather = WeatherGetter(lat: Latitiude, long: Longitude)
-//            weather.downloaded = true
+            weather.downloadWeatherDetails { () -> () in
+                
+                self.updateUI()
+                
+            }
 
         }
         

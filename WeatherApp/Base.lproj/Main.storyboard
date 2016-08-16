@@ -157,8 +157,8 @@
                                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="South" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vj-5F-bmG">
-                                                                <rect key="frame" x="0.0" y="18" width="28" height="17"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vj-5F-bmG">
+                                                                <rect key="frame" x="0.0" y="18" width="100" height="17"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
                                                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -174,7 +174,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="7VW-Fg-Vkb">
                                                 <rect key="frame" x="200" y="0.0" width="200" height="35"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rain" translatesAutoresizingMaskIntoConstraints="NO" id="RNO-l0-JRu">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="10d" translatesAutoresizingMaskIntoConstraints="NO" id="RNO-l0-JRu">
                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="35"/>
                                                     </imageView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="ccK-N7-796">
@@ -338,6 +338,9 @@
                         <outlet property="dayLow" destination="4Q5-V9-OjO" id="lZk-tt-LrY"/>
                         <outlet property="humidityPercentage" destination="SY2-zC-qK0" id="job-eZ-IOJ"/>
                         <outlet property="mainTemp" destination="jXE-bD-U7e" id="B3H-js-MMQ"/>
+                        <outlet property="rainPercentage" destination="g66-XY-Nij" id="mC6-Wg-tzJ"/>
+                        <outlet property="weatherDescription" destination="AHr-wo-uvo" id="Kd8-Sl-bUo"/>
+                        <outlet property="weatherIcon" destination="G2c-vD-FGi" id="sGM-t9-zaa"/>
                         <outlet property="windDirection" destination="2vj-5F-bmG" id="i2l-Zp-j3O"/>
                         <outlet property="windSpeed" destination="UaE-C6-zjF" id="DRq-8R-sBe"/>
                     </connections>
@@ -348,11 +351,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="10d" width="295" height="323"/>
         <image name="Black_background" width="2560" height="1600"/>
         <image name="high_temp" width="555" height="489"/>
         <image name="humidity" width="435" height="435"/>
         <image name="low_temp" width="551" height="489"/>
-        <image name="rain" width="295" height="323"/>
         <image name="sun" width="435" height="315"/>
         <image name="wind2" width="435" height="197"/>
     </resources>

@@ -24,6 +24,7 @@ class WeatherGetter {
     private var _windSpeed: String!
     private var _windDirection: Int!
     private var _weatherDescription: String!
+    private var _weatherIcon: String!
     
     var viewController: ViewController!
     var downloaded = false
@@ -45,39 +46,80 @@ class WeatherGetter {
     }
     
     var cityID: String {
+        if _cityID == nil {
+            _cityID = ""
+        }
         return _cityID
     }
     
     var cityURL: String {
+        if _cityURL == nil {
+            _cityURL = ""
+        }
         return _cityURL
     }
     
     var dayLow: String {
+        if _dayLow == nil {
+            _dayLow = ""
+        }
         return _dayLow
     }
     
     var dayHigh: String {
+        if _dayHigh == nil {
+            _dayHigh = ""
+        }
         return _dayHigh
     }
     
     var longitude: Double {
+        if _longitude == nil {
+            _longitude = 0.0
+        }
         return _longitude
     }
     
     var latitude: Double {
+        if _latitude == nil {
+            _latitude = 0.0
+        }
        return _latitude
     }
     
     var humidityPercentage: String {
+        if _humidityPercentage == nil {
+            _humidityPercentage = ""
+        }
         return _humidityPercentage
     }
     
     var windSpeed: String {
+        if _windSpeed == nil {
+            _windSpeed = ""
+        }
         return _windSpeed
     }
     
     var windDirection: Int {
+        if _windDirection == nil {
+            _windDirection = 0
+        }
         return _windDirection
+    }
+    
+    var weatherDescription: String {
+        if _weatherDescription == nil {
+            _weatherDescription = ""
+        }
+        return _weatherDescription
+    }
+    
+    var weatherIcon: String {
+        if _weatherIcon == nil {
+            _weatherIcon = "01d"
+        }
+        return _weatherIcon
     }
     
     init(lat: Double, long: Double) {
@@ -103,6 +145,13 @@ class WeatherGetter {
         return dateString
     }
     
+    func windDirection(degreeDirection: Int) {
+        
+
+        
+
+    }
+    
 
     
     func downloadWeatherDetails(complete: DownloadComplete) {
@@ -114,7 +163,7 @@ class WeatherGetter {
             
             print(result.value.debugDescription)
             
-            complete()
+
             
             if let dict = result.value as? Dictionary<String, AnyObject> {
                 
@@ -138,17 +187,23 @@ class WeatherGetter {
                     if let wind = dict["wind"] as? Dictionary<String, AnyObject> {
                         if let speed = wind["speed"] as? Int {
                             self._windSpeed = "\(speed) mph"
-                            print(self._windSpeed)
+                            
                         }
                         if let deg = wind["deg"] as? Int {
-                            self._windDirection = deg
-                            print(self._windDirection)
+                            self.windDirection(deg)
                         }
                     }
                     
-                    if let weather = dict["weather"] as? Dictionary<String, Array<String>> {
-                        if let desc = weather["main"] as? AnyObject {
-                            print(desc)
+                    if let weather = dict["weather"] as? [Dictionary<String, AnyObject>] {
+                        if let desc = weather[0]["description"] as? String {
+                            self._weatherDescription = desc
+                        }
+                        if let icon = weather[0]["icon"] as? String {
+                            if icon != "" {
+                                print(icon)
+                                self._weatherIcon = icon
+                            }
+
                         }
                         
                     }
@@ -162,7 +217,7 @@ class WeatherGetter {
 
                 }
             }
-            
+            complete()
         } 
     }
     
