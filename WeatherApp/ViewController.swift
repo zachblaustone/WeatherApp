@@ -20,14 +20,17 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet weak var humidityPercentage: UILabel!
     @IBOutlet weak var weatherDescription: UILabel!
     @IBOutlet weak var weatherIcon: UIImageView!
-    @IBOutlet weak var rainPercentage: UILabel!
+    @IBOutlet weak var sunRise: UILabel!
+    @IBOutlet weak var sunSet: UILabel!
+    @IBOutlet weak var cityNAme: UILabel!
     
 
     
     let locationManager = CLLocationManager()
-    var Longitude: Double = 0.0
-    var Latitiude: Double = 0.0
+    var Longitude: Double = 0
+    var Latitiude: Double = 0
     var weather: WeatherGetter!
+    var weatherAry: [WeatherGetter]!
 
     override func viewDidLoad() {
         
@@ -74,6 +77,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             self.windSpeed.text = weather.windSpeed
             self.humidityPercentage.text = weather.humidityPercentage
             self.weatherDescription.text = weather.weatherDescription.capitalizedString
+            self.cityNAme.text = weather.cityName
+            self.sunRise.text = weather.sunRise
+            self.sunSet.text = weather.sunSet
         
         let img = UIImage(named: "\(weather.weatherIcon)")
         weatherIcon.image = img
@@ -110,11 +116,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        if let cell = collectionView.dequeueReusableCellWithReuseIdentifier("DayCell", forIndexPath: indexPath) as? DayOfTheWeekCell {
+        if let cell = collectionView.dequeueReusableCellWithReuseIdentifier("DayCell", forIndexPath: indexPath) as? TimeCell {
             
-//            let day = dayOfTheWeek[indexPath.row]
-//            
-//            cell.configureCell(day)
+//            let time = weatherAry[indexPath.row]
+//
+//            cell.configureCell(time)
             
             return cell
         } else {
@@ -123,7 +129,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 7
+        return 8
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {

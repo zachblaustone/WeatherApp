@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DayOfTheWeekCell: UICollectionViewCell {
+class TimeCell: UICollectionViewCell {
     
     @IBOutlet weak var weatherImg: UIImageView!
     @IBOutlet weak var dayLbl: UILabel!
@@ -20,21 +20,16 @@ class DayOfTheWeekCell: UICollectionViewCell {
         super.init(coder: aDecoder)
         
         
-//        weatherImg.image = day.image
-//        dayLbl.text = day.day
-//        dayTempLbl.text = day.tempature
+
         
         
         layer.cornerRadius = 5.0
     }
     
-    func configureCell (day: WeatherGetter) {
-        self.day = day
-//        
-//        dayLbl.text = self.day.day.capitalizedString
-//        dayTempLbl.text = self.day.tempature
-//        weatherImg.image = UIImage(named: "rain")
-//        
+    func configureCell (time: WeatherGetter) {
+        
+
+        
     }
     
 }

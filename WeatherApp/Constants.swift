@@ -8,7 +8,8 @@
 
 import Foundation
 
-let URL_BASE = "http://api.openweathermap.org/data/2.5/weather"
+let URL_BASE = "http://api.openweathermap.org/data/2.5/forecast"
+let URL_BASE_WEATHER = "http://api.openweathermap.org/data/2.5/weather"
 let URL_PASSWORD = "e772b0ed8ba67226d25e078b880538f3"
 
 typealias DownloadComplete = () -> ()
